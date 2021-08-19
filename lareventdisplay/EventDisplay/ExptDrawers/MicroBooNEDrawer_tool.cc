@@ -11,6 +11,7 @@
 #include "nuevdb/EventDisplayBase/View3D.h"
 
 #include "art/Framework/Services/Registry/ServiceHandle.h"
+#include "art/Framework/Principal/Event.h"
 #include "art/Utilities/ToolMacros.h"
 
 #include "TPolyLine3D.h"
@@ -23,7 +24,7 @@ class MicroBooNEDrawer : IExperimentDrawer
 public:
     explicit MicroBooNEDrawer(const fhicl::ParameterSet& pset);
 
-    void DetOutline3D(evdb::View3D* view) override;
+    void DetOutline3D(const art::Event& evt, evdb::View3D* view) override;
 
     ~MicroBooNEDrawer() {}
 
@@ -32,7 +33,7 @@ private:
     void DrawRectangularBox(evdb::View3D* view, double* coordsLo, double* coordsHi, int color=kGray, int width = 1, int style = 1);
     void DrawGrids(evdb::View3D* view, double* coordsLo, double* coordsHi, int color=kGray, int width = 1, int style = 1);
     void DrawAxes(evdb::View3D* view, double* coordsLo, double* coordsHi, int color=kGray, int width = 1, int style = 1);
-    void DrawBadChannels(evdb::View3D* view, double* coords, int color, int width, int style);
+    void DrawBadChannels(art::Timestamp t, evdb::View3D* view, double* coords, int color, int width, int style);
 
     // Member variables from the fhicl file
     bool fThreeWindow;                 ///< true to draw rectangular box representing 3 windows
@@ -60,10 +61,9 @@ void MicroBooNEDrawer::configure(const fhicl::ParameterSet& pset)
 }
 
 //......................................................................
-void MicroBooNEDrawer::DetOutline3D(evdb::View3D* view)
+void MicroBooNEDrawer::DetOutline3D(const art::Event& evt, evdb::View3D* view)
 {
     art::ServiceHandle<geo::Geometry const>         geo;
-
     // If requested, draw the outer three window volume first
     if (fThreeWindow)
     {
@@ -84,7 +84,7 @@ void MicroBooNEDrawer::DetOutline3D(evdb::View3D* view)
 
     if (fDrawAxes)        DrawAxes(view, coordsLo, coordsHi, kBlue, 1, 1);
 
-    if (fDrawBadChannels) DrawBadChannels(view, coordsHi, kGray, 1, 1);
+    if (fDrawBadChannels) DrawBadChannels(evt.time(), view, coordsHi, kGray, 1, 1);
 
     return;
 }
@@ -232,7 +232,7 @@ void MicroBooNEDrawer::DrawAxes(evdb::View3D* view, double* coordsLo, double* co
     return;
 }
 
-void MicroBooNEDrawer::DrawBadChannels(evdb::View3D* view, double* coords, int color, int width, int style)
+void MicroBooNEDrawer::DrawBadChannels(art::Timestamp ts, evdb::View3D* view, double* coords, int color, int width, int style)
 {
     art::ServiceHandle<geo::Geometry const>          geo;
     art::ServiceHandle<evd::RawDrawingOptions const> rawOpt;
@@ -249,7 +249,7 @@ void MicroBooNEDrawer::DrawBadChannels(evdb::View3D* view, double* coords, int c
 
             raw::ChannelID_t channel = geo->PlaneWireToChannel(wireID);
 
-            if (channelStatus.IsBad(channel))
+            if (channelStatus.IsBad(ts.value(), channel))
             {
                 const geo::WireGeo* wireGeo = geo->WirePtr(wireID);
 

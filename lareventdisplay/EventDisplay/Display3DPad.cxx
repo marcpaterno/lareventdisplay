@@ -92,7 +92,7 @@ void Display3DPad::Draw()
     const art::Event *evt = evdb::EventHolder::Instance()->GetEvent();
 
     if(evt){
-        this->GeometryDraw()->DetOutline3D(fView);
+        this->GeometryDraw()->DetOutline3D(*evt, fView);
 //        this->SimulationDraw()->MCTruth3D    (*evt, fView);
         this->RecoBaseDraw()->  PFParticle3D (*evt, fView);
         this->RecoBaseDraw()->  Edge3D       (*evt, fView);

@@ -27,7 +27,7 @@ class ProtoDUNEDrawer : public IExperimentDrawer
 public:
     explicit ProtoDUNEDrawer(const fhicl::ParameterSet& pset);
 
-    virtual void DetOutline3D(evdb::View3D* view) override;
+    virtual void DetOutline3D(const art::Event& evt, evdb::View3D* view) override;
 
 protected:
     /// Draw the outline of an object bounded by a box.
@@ -73,7 +73,7 @@ void ProtoDUNEDrawer::configure(const fhicl::ParameterSet& pset)
 }
 
 //......................................................................
-void ProtoDUNEDrawer::DetOutline3D(evdb::View3D* view)
+void ProtoDUNEDrawer::DetOutline3D(const art::Event& evt, evdb::View3D* view)
 {
     auto const& geom = *(lar::providerFrom<geo::Geometry>());
 

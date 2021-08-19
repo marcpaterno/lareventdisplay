@@ -2,7 +2,7 @@
 /// \file   ICARUSDrawer.cc
 /// \author T. Usher
 ////////////////////////////////////////////////////////////////////////
-
+#include "art/Framework/Principal/Event.h"
 #include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "art/Utilities/ToolMacros.h"
 
@@ -23,7 +23,7 @@ class ICARUSDrawer : IExperimentDrawer
 public:
     explicit ICARUSDrawer(const fhicl::ParameterSet& pset);
 
-    void DetOutline3D(evdb::View3D* view) override;
+    void DetOutline3D(const art::Event& evt, evdb::View3D* view) override;
 
     ~ICARUSDrawer() {}
 
@@ -32,7 +32,7 @@ private:
     void DrawRectangularBox(evdb::View3D* view, double* coordsLo, double* coordsHi, int color=kGray, int width = 1, int style = 1);
     void DrawGrids(evdb::View3D* view, double* coordsLo, double* coordsHi, bool verticalGrid, int color=kGray, int width = 1, int style = 1);
     void DrawAxes(evdb::View3D* view, double* coordsLo, double* coordsHi, int color=kGray, int width = 1, int style = 1);
-    void DrawBadChannels(evdb::View3D* view, double* coords, int color, int width, int style);
+    void DrawBadChannels(art::Timestamp ts, evdb::View3D* view, double* coords, int color, int width, int style);
 
     // Member variables from the fhicl file
     bool fDrawGrid;                    ///< true to draw backing grid
@@ -58,7 +58,7 @@ void ICARUSDrawer::configure(const fhicl::ParameterSet& pset)
 }
 
 //......................................................................
-void ICARUSDrawer::DetOutline3D(evdb::View3D* view)
+void ICARUSDrawer::DetOutline3D(const art::Event& evt, evdb::View3D* view)
 {
     art::ServiceHandle<geo::Geometry const> geo;
 
@@ -68,6 +68,7 @@ void ICARUSDrawer::DetOutline3D(evdb::View3D* view)
 
     geo->WorldBox(&xl,&xu,&yl,&yu,&zl,&zu);
 
+    auto ts = evt.time(); 
     std::cout << "--- building ICARUS 3D display, low coord: " << xl << ", " << yl << ", " << zl << ", hi coord: " << xu << ", " << yu << ", " << zu << std::endl;
 
     // Loop over the number of cryostats
@@ -107,7 +108,7 @@ void ICARUSDrawer::DetOutline3D(evdb::View3D* view)
             // It could be that we don't want to see the grids
             if (fDrawGrid)        DrawGrids(view, coordsLo, coordsHi, tpcIdx > 0, kGray+2, 1, 1);
 
-            if (fDrawBadChannels) DrawBadChannels(view, coordsHi, kGray, 1, 1);
+            if (fDrawBadChannels) DrawBadChannels(ts, view, coordsHi, kGray, 1, 1);
         }
     }
 
@@ -258,7 +259,7 @@ void ICARUSDrawer::DrawAxes(evdb::View3D* view, double* coordsLo, double* coords
     return;
 }
 
-void ICARUSDrawer::DrawBadChannels(evdb::View3D* view, double* coords, int color, int width, int style)
+void ICARUSDrawer::DrawBadChannels(art::Timestamp ts, evdb::View3D* view, double* coords, int color, int width, int style)
 {
     art::ServiceHandle<geo::Geometry const>          geo;
     art::ServiceHandle<evd::RawDrawingOptions const> rawOpt;
@@ -275,7 +276,7 @@ void ICARUSDrawer::DrawBadChannels(evdb::View3D* view, double* coords, int color
 
             raw::ChannelID_t channel = geo->PlaneWireToChannel(wireID);
 
-            if (channelStatus.IsBad(channel))
+            if (channelStatus.IsBad(ts.value(), channel))
             {
                 const geo::WireGeo* wireGeo = geo->WirePtr(wireID);
 

@@ -27,7 +27,7 @@ class StandardDrawer : public IExperimentDrawer
 public:
     explicit StandardDrawer(const fhicl::ParameterSet& pset);
 
-    virtual void DetOutline3D(evdb::View3D* view) override;
+    virtual void DetOutline3D(const art::Event& evt, evdb::View3D* view) override;
 
 protected:
     /// Draw the outline of an object bounded by a box.
@@ -71,7 +71,7 @@ void StandardDrawer::configure(const fhicl::ParameterSet& pset)
 }
 
 //......................................................................
-void StandardDrawer::DetOutline3D(evdb::View3D* view)
+void StandardDrawer::DetOutline3D(const art::Event& evt, evdb::View3D* view)
 {
     auto const& geom = *(lar::providerFrom<geo::Geometry>());
 

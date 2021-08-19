@@ -96,7 +96,7 @@ namespace evdb_tool {
         // recover the pedestal
         float pedestal = 0;
 
-        if (rawOpt->fPedestalOption == 0) { pedestal = pedestalRetrievalAlg.PedMean(channel); }
+        if (rawOpt->fPedestalOption == 0) { pedestal = pedestalRetrievalAlg.PedMean(event->time().value(), channel); }
         else if (rawOpt->fPedestalOption == 1) {
           pedestal = rawDigit->GetPedestal();
         }

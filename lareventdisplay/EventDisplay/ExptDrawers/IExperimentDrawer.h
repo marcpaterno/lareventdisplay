@@ -12,6 +12,7 @@
 #define IExperimentDrawer_H
 
 #include "fhiclcpp/ParameterSet.h"
+#include "art/Framework/Principal/fwd.h"
 
 namespace evdb
 {
@@ -25,7 +26,7 @@ namespace evd_tool
     public:
         virtual ~IExperimentDrawer() noexcept = default;
 
-        virtual void DetOutline3D(evdb::View3D* view) = 0;
+        virtual void DetOutline3D(const art::Event& evt, evdb::View3D* view) = 0;
     };
 }
 

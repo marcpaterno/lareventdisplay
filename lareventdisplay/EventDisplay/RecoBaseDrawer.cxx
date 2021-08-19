@@ -153,7 +153,7 @@ namespace evd {
 
         uint32_t channel = wires[i]->Channel();
 
-        if (!rawOpt->fSeeBadChannels && channelStatus.IsBad(channel)) continue;
+        if (!rawOpt->fSeeBadChannels && channelStatus.IsBad(evt.time().value(), channel)) continue;
 
         std::vector<geo::WireID> wireids = geo->ChannelToWire(channel);
 
@@ -237,7 +237,7 @@ namespace evd {
       raw::ChannelID_t channel =
         geo->PlaneWireToChannel(geo::WireID(rawOpt->fCryostat, rawOpt->fTPC, plane, wireNo));
 
-      if (!rawOpt->fSeeBadChannels && channelStatus.IsBad(channel)) {
+      if (!rawOpt->fSeeBadChannels && channelStatus.IsBad(evt.time().value(), channel)) {
         double wire = 1. * wireNo;
         TLine& line = view->AddLine(wire, startTick, wire, endTick);
         line.SetLineColor(kGray);
