@@ -2,11 +2,10 @@ cet_enable_asserts()
 
 art_make(
   TOOL_LIBRARIES
-    ${ART_FRAMEWORK_SERVICES_REGISTRY}
-    ${ART_FRAMEWORK_PRINCIPAL}
+    art::Framework_Services_Registry
     ROOT::Core
     ROOT::Physics
-    canvas
+    canvas::canvas
     larcorealg_Geometry
     lareventdisplay_EventDisplay_RawDrawingOptions_service
     nuevdb_EventDisplayBase

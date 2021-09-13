@@ -652,8 +652,9 @@ namespace evd {
 
     // Use the LArVoxelList to get the true energy deposition locations as
     // opposed to using MCTrajectories
+    // GetLarVoxelList should be adjusted to take an InputTag instead of strange.
     const sim::LArVoxelList voxels =
-      sim::SimListUtils::GetLArVoxelList(evt, drawopt->fG4ModuleLabel.label());
+      sim::SimListUtils::GetLArVoxelList(evt, drawopt->fSimChannelLabel.encode());
 
     mf::LogDebug("SimulationDrawer")
       << "Starting loop over " << plist.size() << " McParticles, voxel list size is "
@@ -960,7 +961,8 @@ namespace evd {
     std::vector<art::Handle<std::vector<simb::MCTruth>>> mctcol;
     // use get by Type because there should only be one collection of these in the event
     try {
-      evt.getManyByType(mctcol);
+      //evt.getManyByType(mctcol);
+      mctcol = evt.getMany<std::vector<simb::MCTruth>>();
       for (size_t mctc = 0; mctc < mctcol.size(); ++mctc) {
         art::Handle<std::vector<simb::MCTruth>> mclistHandle = mctcol[mctc];
 
