@@ -42,8 +42,7 @@
 
 namespace {
   // Utility function to make uniform error messages.
-  void
-  writeErrMsg(const char* fcn, cet::exception const& e)
+  void writeErrMsg(const char* fcn, cet::exception const& e)
   {
     mf::LogWarning("SimulationDrawer") << "SimulationDrawer::" << fcn << " failed with message:\n"
                                        << e;
@@ -106,8 +105,7 @@ namespace evd {
 
   //......................................................................
 
-  void
-  SimulationDrawer::MCTruthShortText(const art::Event& evt, evdb::View2D* view)
+  void SimulationDrawer::MCTruthShortText(const art::Event& evt, evdb::View2D* view)
   {
 
     if (evt.isRealData()) return;
@@ -168,8 +166,7 @@ namespace evd {
 
   //......................................................................
 
-  void
-  SimulationDrawer::MCTruthLongText(const art::Event& evt, evdb::View2D* /*view*/)
+  void SimulationDrawer::MCTruthLongText(const art::Event& evt, evdb::View2D* /*view*/)
   {
     if (evt.isRealData()) return;
 
@@ -203,8 +200,9 @@ namespace evd {
 
   //......................................................................
   //this is the method you would use to color code hits by the MC truth pdg value
-  void
-  SimulationDrawer::MCTruthVectors2D(const art::Event& evt, evdb::View2D* view, unsigned int plane)
+  void SimulationDrawer::MCTruthVectors2D(const art::Event& evt,
+                                          evdb::View2D* view,
+                                          unsigned int plane)
   {
     if (evt.isRealData()) return;
 
@@ -353,8 +351,7 @@ namespace evd {
 
   //......................................................................
   //this method draws the true particle trajectories in 3D
-  void
-  SimulationDrawer::MCTruth3D(const art::Event& evt, evdb::View3D* view)
+  void SimulationDrawer::MCTruth3D(const art::Event& evt, evdb::View3D* view)
   {
     if (evt.isRealData()) return;
 
@@ -623,11 +620,10 @@ namespace evd {
 
   //......................................................................
   //this method draws the true particle trajectories in 3D Ortho view.
-  void
-  SimulationDrawer::MCTruthOrtho(const art::Event& evt,
-                                 evd::OrthoProj_t proj,
-                                 double msize,
-                                 evdb::View2D* view)
+  void SimulationDrawer::MCTruthOrtho(const art::Event& evt,
+                                      evd::OrthoProj_t proj,
+                                      double msize,
+                                      evdb::View2D* view)
   {
     if (evt.isRealData()) return;
 
@@ -920,8 +916,8 @@ namespace evd {
   }
 
   //......................................................................
-  int
-  SimulationDrawer::GetParticle(const art::Event& evt, std::vector<const simb::MCParticle*>& plist)
+  int SimulationDrawer::GetParticle(const art::Event& evt,
+                                    std::vector<const simb::MCParticle*>& plist)
   {
     plist.clear();
 
@@ -949,8 +945,7 @@ namespace evd {
 
   //......................................................................
 
-  int
-  SimulationDrawer::GetMCTruth(const art::Event& evt, std::vector<const simb::MCTruth*>& mcvec)
+  int SimulationDrawer::GetMCTruth(const art::Event& evt, std::vector<const simb::MCTruth*>& mcvec)
   {
     mcvec.clear();
 
@@ -981,11 +976,7 @@ namespace evd {
 
   //......................................................................
 
-  void
-  SimulationDrawer::HiLite(int trkId, bool dohilite)
-  {
-    fHighlite[trkId] = dohilite;
-  }
+  void SimulationDrawer::HiLite(int trkId, bool dohilite) { fHighlite[trkId] = dohilite; }
 
 } // namespace
 ////////////////////////////////////////////////////////////////////////

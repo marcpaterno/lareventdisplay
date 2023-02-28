@@ -73,16 +73,8 @@ namespace evd {
 
     void FillTQHisto(const art::Event& evt, unsigned int plane, unsigned int wire, TH1F* histo);
 
-    double
-    StartTick() const
-    {
-      return fStartTick;
-    }
-    double
-    TotalClockTicks() const
-    {
-      return fTicks;
-    }
+    double StartTick() const { return fStartTick; }
+    double TotalClockTicks() const { return fTicks; }
 
     /// Fills the viewport information from the specified pad
     void ExtractRange(TVirtualPad* pPad, std::vector<double> const* zoom = nullptr);
@@ -112,11 +104,7 @@ namespace evd {
       unsigned int height = 0; // heigt of pad in pixels
 
       /// Returns whether the stored value is valid
-      bool
-      isFilled() const
-      {
-        return (width != 0) && (height != 0);
-      }
+      bool isFilled() const { return (width != 0) && (height != 0); }
 
       /// Returns whether the stored value is valid
       operator bool() const { return isFilled(); }
@@ -201,11 +189,7 @@ namespace evd {
                           unsigned int plane);
     void RunRoIextractor(art::Event const& evt, unsigned int plane);
     void SetDrawingLimitsFromRoI(geo::PlaneID::PlaneID_t plane);
-    void
-    SetDrawingLimitsFromRoI(geo::PlaneID const pid)
-    {
-      SetDrawingLimitsFromRoI(pid.Plane);
-    }
+    void SetDrawingLimitsFromRoI(geo::PlaneID const pid) { SetDrawingLimitsFromRoI(pid.Plane); }
 
     /// Empty collection, used in return value of invalid digits
     static std::vector<raw::RawDigit> const EmptyRawDigits;

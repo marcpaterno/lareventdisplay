@@ -12,19 +12,17 @@
 #ifndef ISim3DDrawer_H
 #define ISim3DDrawer_H
 
+#include "art/Framework/Principal/Event.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "nuevdb/EventDisplayBase/View3D.h"
-#include "art/Framework/Principal/Event.h"
 
-namespace evdb_tool
-{
-    class ISim3DDrawer
-    {
-    public:
-        virtual ~ISim3DDrawer() noexcept = default;
+namespace evdb_tool {
+  class ISim3DDrawer {
+  public:
+    virtual ~ISim3DDrawer() noexcept = default;
 
-        virtual void Draw(const art::Event&, evdb::View3D*) const = 0;
-    };
+    virtual void Draw(const art::Event&, evdb::View3D*) const = 0;
+  };
 }
 
 #endif

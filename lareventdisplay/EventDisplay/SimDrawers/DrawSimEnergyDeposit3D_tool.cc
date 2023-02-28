@@ -44,8 +44,7 @@ namespace evdb_tool {
     fDrawAllSimEnergy = pset.get<bool>("DrawAllSimEnergyDeposits", false);
   }
 
-  void
-  DrawSimEnergyDeposit3D::Draw(const art::Event& evt, evdb::View3D* view) const
+  void DrawSimEnergyDeposit3D::Draw(const art::Event& evt, evdb::View3D* view) const
   {
     art::ServiceHandle<evd::SimulationDrawingOptions const> drawOpt;
 
@@ -61,8 +60,7 @@ namespace evdb_tool {
     return;
   }
 
-  void
-  DrawSimEnergyDeposit3D::drawMCPartAssociated(const art::Event& evt, evdb::View3D* view) const
+  void DrawSimEnergyDeposit3D::drawMCPartAssociated(const art::Event& evt, evdb::View3D* view) const
   {
     art::ServiceHandle<evd::SimulationDrawingOptions const> drawOpt;
 
@@ -182,8 +180,7 @@ namespace evdb_tool {
     return;
   }
 
-  void
-  DrawSimEnergyDeposit3D::drawAll(const art::Event& evt, evdb::View3D* view) const
+  void DrawSimEnergyDeposit3D::drawAll(const art::Event& evt, evdb::View3D* view) const
   {
     art::ServiceHandle<evd::SimulationDrawingOptions const> drawOpt;
 

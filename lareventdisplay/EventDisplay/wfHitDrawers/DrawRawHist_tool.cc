@@ -30,16 +30,8 @@ namespace evdb_tool {
     void Fill(evdb::View2D&, raw::ChannelID_t&, float, float) override;
     void Draw(const std::string&, float, float) override;
 
-    float
-    getMaximum() const override
-    {
-      return fMaximum;
-    };
-    float
-    getMinimum() const override
-    {
-      return fMinimum;
-    };
+    float getMaximum() const override { return fMaximum; };
+    float getMinimum() const override { return fMinimum; };
 
   private:
     void BookHistogram(raw::ChannelID_t&, float, float);
@@ -56,14 +48,12 @@ namespace evdb_tool {
 
   DrawRawHist::~DrawRawHist() {}
 
-  void
-  DrawRawHist::configure(const fhicl::ParameterSet& pset)
-  {
-    return;
-  }
+  void DrawRawHist::configure(const fhicl::ParameterSet& pset) { return; }
 
-  void
-  DrawRawHist::Fill(evdb::View2D& view2D, raw::ChannelID_t& channel, float lowBin, float numTicks)
+  void DrawRawHist::Fill(evdb::View2D& view2D,
+                         raw::ChannelID_t& channel,
+                         float lowBin,
+                         float numTicks)
   {
     art::ServiceHandle<evd::RawDrawingOptions const> rawOpt;
 
@@ -96,7 +86,9 @@ namespace evdb_tool {
         // recover the pedestal
         float pedestal = 0;
 
-        if (rawOpt->fPedestalOption == 0) { pedestal = pedestalRetrievalAlg.PedMean(event->time().value(), channel); }
+        if (rawOpt->fPedestalOption == 0) {
+          pedestal = pedestalRetrievalAlg.PedMean(event->time().value(), channel);
+        }
         else if (rawOpt->fPedestalOption == 1) {
           pedestal = rawDigit->GetPedestal();
         }
@@ -136,8 +128,7 @@ namespace evdb_tool {
     return;
   }
 
-  void
-  DrawRawHist::Draw(const std::string& options, float maxLowVal, float maxHiVal)
+  void DrawRawHist::Draw(const std::string& options, float maxLowVal, float maxHiVal)
   {
     TH1F* histPtr = fRawDigitHist.get();
 
@@ -151,8 +142,7 @@ namespace evdb_tool {
   }
 
   //......................................................................
-  void
-  DrawRawHist::BookHistogram(raw::ChannelID_t& channel, float startTick, float numTicks)
+  void DrawRawHist::BookHistogram(raw::ChannelID_t& channel, float startTick, float numTicks)
   {
     art::ServiceHandle<evd::ColorDrawingOptions const> cst;
     art::ServiceHandle<geo::Geometry const> geo;

@@ -35,8 +35,7 @@ namespace evdb_tool {
 
   PFParticle3DDrawer::~PFParticle3DDrawer() {}
 
-  void
-  PFParticle3DDrawer::Draw(const art::Event& evt, evdb::View3D* view) const
+  void PFParticle3DDrawer::Draw(const art::Event& evt, evdb::View3D* view) const
   {
     /*
     art::ServiceHandle<evd::SimulationDrawingOptions const> drawOpt;

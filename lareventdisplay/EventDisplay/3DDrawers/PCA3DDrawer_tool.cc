@@ -37,8 +37,7 @@ namespace evdb_tool {
 
   PCA3DDrawer::~PCA3DDrawer() {}
 
-  void
-  PCA3DDrawer::Draw(const art::Event& evt, evdb::View3D* view) const
+  void PCA3DDrawer::Draw(const art::Event& evt, evdb::View3D* view) const
   {
     /*
     art::ServiceHandle<evd::SimulationDrawingOptions const> drawOpt;

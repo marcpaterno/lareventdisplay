@@ -12,22 +12,19 @@
 #ifndef IWFHitDrawer_H
 #define IWFHitDrawer_H
 
+#include "TF1.h"
 #include "fhiclcpp/ParameterSet.h"
 #include "larcoreobj/SimpleTypesAndConstants/RawTypes.h" // raw::ChannelID_t
 #include "nuevdb/EventDisplayBase/View2D.h"
-#include "TF1.h"
 
-namespace evdb_tool
-{
-    class IWFHitDrawer
-    {
-    public:
-        virtual ~IWFHitDrawer() noexcept = default;
+namespace evdb_tool {
+  class IWFHitDrawer {
+  public:
+    virtual ~IWFHitDrawer() noexcept = default;
 
-        virtual void configure(const fhicl::ParameterSet& pset)       = 0;
-        virtual void Draw(evdb::View2D&,
-                          raw::ChannelID_t&)                    const = 0;
-    };
+    virtual void configure(const fhicl::ParameterSet& pset) = 0;
+    virtual void Draw(evdb::View2D&, raw::ChannelID_t&) const = 0;
+  };
 }
 
 #endif

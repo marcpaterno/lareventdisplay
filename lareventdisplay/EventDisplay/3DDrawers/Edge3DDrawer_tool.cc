@@ -37,8 +37,7 @@ namespace evdb_tool {
 
   Edge3DDrawer::~Edge3DDrawer() {}
 
-  void
-  Edge3DDrawer::Draw(const art::Event& evt, evdb::View3D* view) const
+  void Edge3DDrawer::Draw(const art::Event& evt, evdb::View3D* view) const
   {
     /*
     art::ServiceHandle<evd::SimulationDrawingOptions const> drawOpt;

@@ -44,8 +44,7 @@ namespace evdb_tool {
   // Constructor.
   DrawLArVoxel3D::DrawLArVoxel3D(const fhicl::ParameterSet& pset) {}
 
-  void
-  DrawLArVoxel3D::Draw(const art::Event& evt, evdb::View3D* view) const
+  void DrawLArVoxel3D::Draw(const art::Event& evt, evdb::View3D* view) const
   {
     art::ServiceHandle<evd::SimulationDrawingOptions const> drawOpt;
 
@@ -310,8 +309,8 @@ namespace evdb_tool {
   }
 
   //......................................................................
-  int
-  DrawLArVoxel3D::GetMCTruth(const art::Event& evt, std::vector<const simb::MCTruth*>& mcvec) const
+  int DrawLArVoxel3D::GetMCTruth(const art::Event& evt,
+                                 std::vector<const simb::MCTruth*>& mcvec) const
   {
     mcvec.clear();
 
