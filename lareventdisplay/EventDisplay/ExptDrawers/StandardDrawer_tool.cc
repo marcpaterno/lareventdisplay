@@ -8,6 +8,7 @@
 #include "art/Utilities/ToolMacros.h"
 
 #include "fhiclcpp/ParameterSet.h"
+#include "larcore/CoreUtils/ServiceUtil.h"
 #include "larcore/Geometry/Geometry.h"
 #include "larcorealg/Geometry/CryostatGeo.h"
 #include "larcorealg/Geometry/TPCGeo.h"
@@ -104,7 +105,7 @@ namespace evd_tool {
 
     // Draw a box for each cryostat, and, within it, for each TPC;
     // the outlined volumes are the ones from the geometry boxes
-    for (geo::CryostatGeo const& cryo : geom.IterateCryostats()) {
+    for (geo::CryostatGeo const& cryo : geom.Iterate<geo::CryostatGeo>()) {
 
       // include this cryostat in the detector volume
       detector.ExtendToInclude(cryo);
@@ -113,7 +114,7 @@ namespace evd_tool {
       DrawBoxBoundedGeoOutline(view, cryo.Boundaries(), kRed + 2, 1, kSolid);
 
       // draw all TPC boxes
-      for (geo::TPCGeo const& TPC : cryo.TPCs()) {
+      for (geo::TPCGeo const& TPC : cryo.IterateTPCs()) {
 
         DrawTPCoutline(view, TPC, kRed, 2, kSolid);
 

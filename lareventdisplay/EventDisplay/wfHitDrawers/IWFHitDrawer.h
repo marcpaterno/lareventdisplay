@@ -12,10 +12,12 @@
 #ifndef IWFHitDrawer_H
 #define IWFHitDrawer_H
 
-#include "TF1.h"
-#include "fhiclcpp/ParameterSet.h"
+#include "fhiclcpp/fwd.h"
 #include "larcoreobj/SimpleTypesAndConstants/RawTypes.h" // raw::ChannelID_t
-#include "nuevdb/EventDisplayBase/View2D.h"
+
+namespace evdb {
+  class View2D;
+}
 
 namespace evdb_tool {
   class IWFHitDrawer {

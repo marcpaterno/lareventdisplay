@@ -2,15 +2,11 @@
 /// \brief   Class to aid in the rendering of AnalysisBase objects
 /// \author  msoderbe@syr.edu
 
-#include "TLatex.h"
-#include "TLine.h"
-#include "TPolyMarker.h"
-
+#include "lareventdisplay/EventDisplay/AnalysisBaseDrawer.h"
 #include "larcore/Geometry/Geometry.h"
 #include "lardataobj/AnalysisBase/Calorimetry.h"
 #include "lardataobj/AnalysisBase/ParticleID.h"
 #include "lardataobj/RecoBase/Track.h"
-#include "lareventdisplay/EventDisplay/AnalysisBaseDrawer.h"
 #include "lareventdisplay/EventDisplay/AnalysisDrawingOptions.h"
 #include "lareventdisplay/EventDisplay/RecoDrawingOptions.h"
 #include "lareventdisplay/EventDisplay/eventdisplay.h"
@@ -22,20 +18,11 @@
 #include "canvas/Persistency/Common/FindMany.h"
 #include "canvas/Persistency/Common/Ptr.h"
 
-#include <math.h>
+#include "TLatex.h"
+#include "TLine.h"
+#include "TPolyMarker.h"
 
-/* unused function
-namespace {
-   // Utility function to make uniform error messages.
-   void writeErrMsg(const char* fcn,
-                    cet::exception const& e)
-   {
-      mf::LogWarning("AnalysisBaseDrawer") << "AnalysisBaseDrawer::" << fcn
-                                           << " failed with message:\n"
-                                           << e;
-   }
-}
-*/
+#include <cmath>
 
 namespace evd {
 
@@ -86,7 +73,6 @@ namespace evd {
             if (calos.size() != pids.size()) continue;
             size_t bestplane = 0;
             size_t calopl = 0;
-            size_t pidpl = 0;
             size_t nmaxhits = 0;
             for (size_t icalo = 0; icalo < calos.size(); ++icalo) {
               if (calos[icalo]->dEdx().size() > nmaxhits) {
@@ -105,9 +91,6 @@ namespace evd {
             for (size_t icalo = 0; icalo < calos.size(); ++icalo) {
               if (calos[icalo]->PlaneID().Plane == bestplane) { calopl = icalo; }
             }
-            for (size_t ipid = 0; ipid < pids.size(); ++ipid) {
-              if (pids[ipid]->PlaneID().Plane == bestplane) { pidpl = ipid; }
-            }
 
             TPolyMarker& pm =
               view->AddPolyMarker(calos[calopl]->dEdx().size(), evd::kColor[color], 8, 0.8);
@@ -124,50 +107,24 @@ namespace evd {
             char trackinfo[80];
             char pida[80];
             char proton[80];
-            //char kaon[80];
             char pion[80];
-            //char muon[80];
             sprintf(trackinfo,
                     "Track #%d: K.E. = %.1f MeV , Range = %.1f cm",
                     int(tracklist[trkIter].key()),
                     calos[calopl]->KineticEnergy(),
                     calos[calopl]->Range());
-            sprintf(proton,
-                    "Proton Chi2 = %.1f, Kaon Chi2 = %.1f",
-                    pids[pidpl]->Chi2Proton(),
-                    pids[pidpl]->Chi2Kaon());
-            //		 sprintf(kaon,"Kaon Chi2 = %.1f",
-            //			 pids[pidpl]->Chi2Kaon());
-            sprintf(pion,
-                    "Pion Chi2 = %.1f, Muon Chi2 = %.1f",
-                    pids[pidpl]->Chi2Pion(),
-                    pids[pidpl]->Chi2Muon());
-            //		 sprintf(muon,"Muon Chi2 = %.1f",
-            //			 pids[pidpl]->Chi2Muon());
-            sprintf(pida,
-                    "Plane %d, PIDA = %.1f, NHits = %d",
-                    calos[calopl]->PlaneID().Plane,
-                    pids[pidpl]->PIDA(),
-                    int(calos[calopl]->dEdx().size()));
-
             double offset = (ntracks - 1) * 10.0;
             TLatex& track_tex = view->AddLatex(13.0, (46.0) - offset, trackinfo);
             TLatex& pida_tex = view->AddLatex(13.0, (46.0 - 2.5) - offset, pida);
             TLatex& proton_tex = view->AddLatex(13.0, (46.0 - 5.0) - offset, proton);
-            //TLatex& kaon_tex   = view->AddLatex(13.0, (46.0-4.0) - offset,kaon);
             TLatex& pion_tex = view->AddLatex(13.0, (46.0 - 7.5) - offset, pion);
-            //TLatex& muon_tex   = view->AddLatex(13.0, (46.0-8.0) - offset,muon);
             track_tex.SetTextColor(evd::kColor[color]);
             proton_tex.SetTextColor(evd::kColor[color]);
-            //kaon_tex.SetTextColor(evd::kColor[color]);
             pion_tex.SetTextColor(evd::kColor[color]);
-            //muon_tex.SetTextColor(evd::kColor[color]);
             pida_tex.SetTextColor(evd::kColor[color]);
             track_tex.SetTextSize(0.05);
             proton_tex.SetTextSize(0.05);
-            //kaon_tex.SetTextSize(0.05);
             pion_tex.SetTextSize(0.05);
-            //muon_tex.SetTextSize(0.05);
             pida_tex.SetTextSize(0.05);
           }
         }

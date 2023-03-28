@@ -10,12 +10,10 @@
 #include <string>
 #include <vector>
 
-#include "art/Framework/Services/Registry/ActivityRegistry.h"
+#include "nuevdb/EventDisplayBase/Reconfigurable.h"
 #include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
-#include "art/Framework/Services/Registry/ServiceHandle.h"
 #include "canvas/Utilities/InputTag.h"
 #include "fhiclcpp/ParameterSet.h"
-#include "nuevdb/EventDisplayBase/Reconfigurable.h"
 
 namespace evd {
 

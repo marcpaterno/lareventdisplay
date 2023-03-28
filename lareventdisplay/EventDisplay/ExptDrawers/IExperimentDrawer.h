@@ -12,7 +12,6 @@
 #define IExperimentDrawer_H
 
 #include "art/Framework/Principal/fwd.h"
-#include "fhiclcpp/ParameterSet.h"
 
 namespace evdb {
   class View3D;

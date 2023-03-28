@@ -4,10 +4,12 @@
 #include <string>
 #include <vector>
 
-#include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
-#include "art/Framework/Services/Registry/ServiceHandle.h"
-#include "fhiclcpp/ParameterSet.h"
+namespace fhicl {
+  class ParameterSet;
+}
+
 #include "nuevdb/EventDisplayBase/Reconfigurable.h"
+#include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
 
 namespace evd {
   class AnalysisDrawingOptions : public evdb::Reconfigurable {

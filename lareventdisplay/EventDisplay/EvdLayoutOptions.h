@@ -10,7 +10,11 @@
 #include <string>
 
 #include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
-#include "fhiclcpp/ParameterSet.h"
+
+namespace fhicl {
+  class ParameterSet;
+}
+
 #include "nuevdb/EventDisplayBase/Reconfigurable.h"
 
 namespace evd {

@@ -12,9 +12,11 @@
 #ifndef ISim3DDrawer_H
 #define ISim3DDrawer_H
 
-#include "art/Framework/Principal/Event.h"
-#include "fhiclcpp/ParameterSet.h"
-#include "nuevdb/EventDisplayBase/View3D.h"
+#include "art/Framework/Principal/fwd.h"
+
+namespace evdb {
+  class View3D;
+}
 
 namespace evdb_tool {
   class ISim3DDrawer {

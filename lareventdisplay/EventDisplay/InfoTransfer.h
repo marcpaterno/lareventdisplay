@@ -13,14 +13,23 @@
 #include <string>
 #include <vector>
 
-#include "art/Framework/Services/Registry/ActivityRegistry.h"
-#include "art/Framework/Services/Registry/ServiceHandle.h"
-#include "art/Persistency/Provenance/ScheduleContext.h"
-#include "fhiclcpp/ParameterSet.h"
 #include "nuevdb/EventDisplayBase/Reconfigurable.h"
+#include "art/Framework/Services/Registry/ServiceDeclarationMacros.h"
+#include "art/Persistency/Provenance/ScheduleContext.h"
 
-#include "lardataobj/RecoBase/Cluster.h"
-#include "lardataobj/RecoBase/Hit.h"
+namespace art {
+  class ActivityRegistry;
+  class Event;
+}
+#include "canvas/Persistency/Common/Ptr.h"
+
+namespace fhicl {
+  class ParameterSet;
+}
+
+namespace recob {
+  class Hit;
+}
 
 namespace util {
   class PxPoint;

@@ -12,9 +12,12 @@
 #ifndef I3DDrawer_H
 #define I3DDrawer_H
 
-#include "art/Framework/Principal/Event.h"
-#include "fhiclcpp/ParameterSet.h"
-#include "nuevdb/EventDisplayBase/View3D.h"
+namespace evdb {
+  class View3D;
+}
+namespace art {
+  class Event;
+}
 
 namespace evdb_tool {
   class I3DDrawer {

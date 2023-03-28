@@ -1,15 +1,46 @@
 cet_enable_asserts()
 
-art_make(
-  TOOL_LIBRARIES
-    art::Framework_Services_Registry
-    ROOT::Core
-    ROOT::Physics
-    canvas::canvas
-    larcorealg_Geometry
-    lareventdisplay_EventDisplay_RawDrawingOptions_service
-    nuevdb_EventDisplayBase
-  )
+cet_build_plugin(ICARUSDrawer art::tool
+  LIBRARIES PRIVATE
+  lareventdisplay::EventDisplay_RawDrawingOptions_service
+  larevt::ChannelStatusProvider
+  larevt::ChannelStatusService
+  larcore::Geometry_Geometry_service
+  nuevdb::EventDisplayBase
+  art::Framework_Services_Registry
+  ROOT::Graf3d
+)
+
+cet_build_plugin(MicroBooNEDrawer art::tool
+  LIBRARIES PRIVATE
+  lareventdisplay::EventDisplay_RawDrawingOptions_service
+  larevt::ChannelStatusProvider
+  larevt::ChannelStatusService
+  larcore::Geometry_Geometry_service
+  nuevdb::EventDisplayBase
+  art::Framework_Services_Registry
+  ROOT::Graf3d
+)
+
+cet_build_plugin(ProtoDUNEDrawer art::tool
+  LIBRARIES PRIVATE
+  larcore::Geometry_Geometry_service
+  larcore::ServiceUtil
+  larcorealg::Geometry
+  nuevdb::EventDisplayBase
+  fhiclcpp::fhiclcpp
+  ROOT::Graf3d
+)
+
+cet_build_plugin(StandardDrawer art::tool
+  LIBRARIES PRIVATE
+  larcore::Geometry_Geometry_service
+  larcore::ServiceUtil
+  larcorealg::Geometry
+  nuevdb::EventDisplayBase
+  fhiclcpp::fhiclcpp
+  ROOT::Graf3d
+)
 
 install_headers()
 install_source()
